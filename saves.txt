@@ -1,0 +1,14 @@
+@client.command()
+async def free(ctx):
+    available = discord.utils.get(ctx.guild.categories, name="Help: Available")
+    free_channels = []
+    for channel in available.channels:
+        if channel.id != 815030730211983361:
+            free_channels.append(str(channel.id))
+    await ctx.send(f"You can use this free python help channel below:\n" + client.get_channel(int(random.choice(free_channels))).mention)
+
+
+
+
+		        await client.get_channel(797342261507391488).purge(limit=1)
+		        await client.get_channel(796206902895181844).send(f"{bump.mention} Disboard is back online")
