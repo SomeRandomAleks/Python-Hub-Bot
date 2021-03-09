@@ -501,4 +501,4 @@ async def q(ctx):
 
 
 
-client.run('Nzk2MTk1OTk1Mjg0NDA2Mjky.X_UZTQ.m5POXZ2hpzL7AOzix7II0XkcM1U')
+client.run('')
