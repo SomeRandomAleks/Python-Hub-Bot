@@ -1,23 +1,31 @@
-import discord
-from discord.ext import commands
-import os
-import asyncio
+# DEFAULT IMPORTS
+import random
 import json
-import typing
 import time
 import datetime
+import os
+
+# NON-DEFAULT IMPORTS
+import discord
+import asyncio
+import typing
 import threading
-import random
+from bs4 import BeautifulSoup
+
+# OTHER IMPORTS
+from discord.ext import commands
 from discord.ext.commands import Cog
 try:
 	from googlesearch import search
 except ModuleNotFoundError:
 	os.system('pip install google')
+
+# FILE IMPORTS
 from cogs.resources import *
 import requests
-from bs4 import BeautifulSoup
 import keep_alive
 
+# BOT SETUP
 intents = discord.Intents.all()
 intents.members = True
 intents.reactions = True
@@ -25,7 +33,11 @@ intents.reactions = True
 client = commands.Bot(command_prefix="!", intents=intents)
 client.remove_command("help")
 
-start_stop = True
+# COG EXTENSIONS
+client.load_extension('cogs.rr')
+client.load_extension('cogs.bump')
+
+
 
 
 
@@ -98,27 +110,9 @@ async def spam(message):
 			await message.channel.send(embed=em)
 
 
-@client.command()
-@commands.has_role('Moderation')
-async def start(ctx):
-	global start_stop
-	if start_stop:
-		await ctx.send("Bot is already on")
-		return
 
-	start_stop = True
-	await ctx.send("Bot has been started")
 
-@client.command()
-@commands.has_role('Moderation')
-async def stop(ctx):
-	global start_stop
-	if not start_stop:
-		await ctx.send("Bot is already off")
-		return
 
-	start_stop = False
-	await ctx.send("Bot has been stopped")
 
 @client.listen('on_message')
 async def ping(message):
@@ -161,8 +155,7 @@ Also be patient, if you haven't got a response for more than 1 hour then you can
 
 
 
-client.load_extension('cogs.rr')
-client.load_extension('cogs.bump')
+
 
 @client.listen('on_message')
 async def user_bump(message):

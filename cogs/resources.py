@@ -14,6 +14,9 @@ tz = pytz.timezone('EST')
 datetime_now = datetime.datetime.now(tz)
 current_time = datetime_now.strftime("%H:%M")
 
+log_channel = 818568955010613299
+start_stop = True
+
 
 async def get_category(guild, category) -> discord.CategoryChannel:
     return discord.utils.get(guild.categories, name=category)
