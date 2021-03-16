@@ -36,6 +36,7 @@ client.remove_command("help")
 # COG EXTENSIONS
 client.load_extension('cogs.rr')
 client.load_extension('cogs.bump')
+client.load_extension('mod.kick_ban')
 
 
 
@@ -74,6 +75,54 @@ async def on_ready():
 
 
 keep_alive.keep_alive()
+
+# START/STOP
+start_stop = True
+
+@client.command()
+async def start(ctx):
+	global start_stop
+	if start_stop:
+		await ctx.send("Bot is already on")
+		await client.get_channel(log_channel).send(
+			embed = discord.Embed(
+				title="Start",
+				description=f"{ctx.author} used !start\nBot was already on"
+			).set_footer(text=f"Time: {current_time}")
+		)
+		return
+	await ctx.send("Bot is on")
+	await client.get_channel(log_channel).send(
+		embed = discord.Embed(
+			title="Start",
+			description=f"{ctx.author} used !start"
+		).set_footer(text=f"Time: {current_time}")
+	)
+	return
+
+@client.command()
+async def stop(ctx):
+	global start_stop
+	if not start_stop:
+		await ctx.send("Bot is already off")
+		await client.get_channel(log_channel).send(
+			embed = discord.Embed(
+				title="Stop",
+				description=f"{ctx.author} used !stop\nBot was already off",
+				color=0xffffff
+			).set_footer(text=f"Time: {current_time}")
+		)
+		return
+	
+	await ctx.send("Bot is off")
+	await client.get_channel(log_channel).send(
+		embed = discord.Embed(
+			title="Stop",
+			description=f"{ctx.author} used !stop",
+			color=0xffffff
+		).set_footer(text=f"Time: {current_time}")
+	)
+	return
 
 
 
@@ -272,66 +321,7 @@ async def unmute(ctx, member : discord.Member):
 
 
 
-@client.command()
-@commands.has_role("Moderation")
-async def kick(ctx, member : discord.Member, *, reason=None):
-	if not start_stop:
-		return
-	await member.kick(reason=reason)
 
-	guild = client.get_guild(ctx.author.guild.id)
-	embed = discord.Embed(title=f"{member} was kicked", description=f"{ctx.author.mention} has kicked {member}\nReason: {reason}", color=0x1f4454)
-	embed.set_thumbnail(url=member.avatar_url)
-	embed.set_footer(text=f"We are now at {guild.member_count} members")
-
-	await ctx.send(embed=embed)
-
-
-
-@client.command()
-@commands.has_permissions(ban_members=True)
-async def ban(ctx, member : discord.Member, reason=None):
-	if not start_stop:
-		return
-	await member.ban(reason=reason)
-	embed = discord.Embed(title='Member Banned', description=f'{member} has been banned by {ctx.author}', color=0x1f4454)
-	embed.set_thumbnail(url=ctx.author.avatar_url)
-	await ctx.send(embed=embed)
-
-
-
-@client.command()
-@commands.has_permissions(ban_members=True)
-async def unban(ctx, *, user=None):
-	if not start_stop:
-		return
-
-	try:
-		user = await commands.converter.UserConverter().convert(ctx, user)
-	except:
-		await ctx.send("Error: user could not be found!")
-		return
-
-	try:
-		bans = tuple(ban_entry.user for ban_entry in await ctx.guild.bans())
-		if user in bans:
-			await ctx.guild.unban(user, reason="Responsible moderator: "+ str(ctx.author))
-		else:
-			await ctx.send("User not banned!")
-			return
-
-	except discord.Forbidden:
-		await ctx.send("I do not have permission to unban!")
-		return
-
-	except:
-		await ctx.send("Unbanning failed!")
-		return
-
-	embed = discord.Embed(title="Unban", description=f"{user} was successfully unbanned by {ctx.author}", color=0x1f4454)
-	embed.set_thumbnail(url=ctx.author.avatar_url)
-
-	await ctx.send(embed=embed)
 
 
 

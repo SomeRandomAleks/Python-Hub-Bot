@@ -12,3 +12,11 @@ async def free(ctx):
 
 		        await client.get_channel(797342261507391488).purge(limit=1)
 		        await client.get_channel(796206902895181844).send(f"{bump.mention} Disboard is back online")
+
+
+COLORS:
+
+Fail - ff0011
+Success - 1eff00
+Special - ff6f00
+Other - ffffff

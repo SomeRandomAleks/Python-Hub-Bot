@@ -3,6 +3,8 @@ import discord
 import asyncio
 from main import client
 
+
+
 class BumpCog(Cog):
     @Cog.listener()
     async def on_message(self, message):
@@ -24,7 +26,7 @@ class BumpCog(Cog):
         embed_content = message.embeds[0].description
         bumping = discord.utils.get(message.guild.roles, id=803859911397474354)
 
-        if "Bump done" in embed_content or "Bump. done" in embed_content or "https://disboard.org/" in embed_content:
+        if "Bump done" in embed_content or "👍" in embed_content:
             await asyncio.sleep(2)
             await message.channel.purge(limit=2)
             embed = discord.Embed(title=f"Bump Success",

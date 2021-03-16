@@ -4,6 +4,13 @@ from discord.ext.commands import Cog
 import datetime
 import pytz
 
+# COLORS:
+
+# Fail - ff0011
+# Success - 1eff00
+# Special - ff6f00
+# Other - ffffff
+
 intents = discord.Intents.all()
 intents.members = True
 intents.reactions = True
@@ -15,7 +22,6 @@ datetime_now = datetime.datetime.now(tz)
 current_time = datetime_now.strftime("%H:%M")
 
 log_channel = 818568955010613299
-start_stop = True
 
 
 async def get_category(guild, category) -> discord.CategoryChannel:
