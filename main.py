@@ -52,7 +52,7 @@ async def on_ready():
 	announcements = discord.utils.get(guild.roles, name="Announcements")
 	bump = discord.utils.get(guild.roles, name="Bump")
 	while True:
-		await asyncio.sleep(10)
+		await asyncio.sleep(9)
 		with open('spam.txt', 'r+') as f:
 			f.truncate(0)
 		disboard = discord.utils.get(guild.members, id=302050872383242240)
@@ -141,7 +141,7 @@ async def spam(message):
 				counter+=1
 		
 		file.write(f"{str(message.author.id)}\n")
-		if counter >= 20:
+		if counter >= 30:
 			await message.author.add_roles(role)
 			embed = discord.Embed(title=f"{message.author} has been muted", description="Reason: Spam\nThey will be unmuted in 30 seconds", color=0x1f4454)
 			embed.set_thumbnail(url=message.author.avatar_url)

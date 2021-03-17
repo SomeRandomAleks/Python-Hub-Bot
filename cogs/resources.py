@@ -17,7 +17,7 @@ intents.reactions = True
 
 client = commands.Bot(command_prefix="!", intents=intents)
 python_hub = "https://cdn.discordapp.com/attachments/814986274158805033/814986385429758012/Python_Hub_1.png"
-tz = pytz.timezone('EST')
+tz = pytz.timezone('America/New_York')
 datetime_now = datetime.datetime.now(tz)
 current_time = datetime_now.strftime("%H:%M")
 
